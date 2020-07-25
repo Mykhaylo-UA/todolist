@@ -1,0 +1,60 @@
+.NavBar{
+    height: 65px;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px -2px 19px rgba(0, 0, 0, 0.25);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Container{
+    display:inline-flex;
+}
+.Container:nth-child(1){
+    padding-left: 30px;
+}
+.Container:nth-child(2){
+    padding-left: 30px;
+}
+.Container:nth-child(3){
+    padding-right: 30px;
+}
+.Container > button{
+    background-color: rgba(238, 238, 238, 0.247);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.486);
+    border:none;
+    border-radius: 2px;
+    padding: 4px;
+    cursor: pointer;
+}
+.Container > button:hover{
+    background-color: rgba(238, 238, 238, 0.74);
+}
+.NavBar i{
+    font-size: 2em;
+}
+.NavBar i:hover{
+    cursor: pointer;
+}
+
+.NavBar h2{
+    font-family: Sitka;
+    text-align: center;
+}
+
+@media(max-width: 700px){
+    .NavBar h2{
+        position: absolute;
+        top: 55px;
+        left: 40%;
+        right: 40%;
+    }
+}
+@media(max-width: 300px){
+    .Container:nth-child(1){
+        padding:0;
+    }
+    .Container:nth-child(2){
+        padding:0;
+    }
+}

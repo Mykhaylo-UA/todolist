@@ -1,0 +1,71 @@
+.Authorization{
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+}
+.Authorization > div{
+    width: 50%;
+    height: auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.Authorization  img{
+    display:block;
+    width: 100%;
+    object-fit: cover;
+}
+
+.Authorization > form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+    overflow-y: auto;
+}
+.Authorization > form > h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.Authorization > form > input{
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    margin: 20px 0;
+    border-bottom: 2px solid rgb(117, 117, 117);
+    padding: 10px 5px;
+    transition: 0.3s;
+}
+.Authorization > form > input:focus{
+    border-color: orangered;
+}
+.Authorization > form > input[type="submit"]{
+    border:none;
+    width: 30%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: orangered;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.Authorization > form > input[type="submit"]:hover{
+    background-color: rgb(170, 45, 0);
+    color:white;
+}
+
+@media (max-width: 650px) {
+    .Authorization > div{
+        display:none;
+    }
+    .Authorization > form{
+        width: 100%;
+    }
+}
+@media (max-height: 530px) {
+    .Authorization > form{
+        justify-content: space-between;
+    }
+}

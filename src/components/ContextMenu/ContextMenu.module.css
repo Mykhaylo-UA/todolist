@@ -1,0 +1,6 @@
+.ContextMenu{
+    width: 100px;
+    background-color: white;
+    box-shadow: 0 0 1px 0px black;
+    position: absolute;
+}

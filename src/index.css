@@ -11,3 +11,97 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.modalFade-enter {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.modalFade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+  z-index: 12;
+}
+.modalFade-enter-done{
+  opacity: 1;
+  transition: opacity 500ms;
+  z-index: 12;
+}
+.modalFade-exit {
+  opacity: 1;
+  transition: opacity 500ms;
+  z-index: 12;
+}
+.modalFade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.modalFade-enter + div,
+.slideFade-enter + div{
+  background-color: rgba(0, 0, 0, 0);
+  transition: 500ms;
+}
+.modalFade-enter-active + div,
+.slideFade-enter-active + div  {
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: 500ms;
+}
+.modalFade-enter-done + div,
+.slideFade-enter-done + div {
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: 500ms;
+}
+.modalFade-exit + div,
+.slideFade-exit + div  {
+  background-color: rgba(0, 0, 0, 0);
+  transition: 500ms;
+}
+.modalFade-exit-active + div,
+.slideFade-exit-active + div  {
+  background-color: rgba(0, 0, 0, 0);
+  transition: 500ms;
+}
+
+
+
+
+.slideFade-enter {
+  left: -350px;
+  transition: 500ms;
+}
+.slideFade-enter-active {
+  left: 0px;
+  transition: 500ms;
+}
+.slideFade-enter-done{
+  left: 0px;
+  transition: 500ms;
+}
+.slideFade-exit {
+  left: 0px;
+  transition: 500ms;
+}
+.slideFade-exit-active {
+  left: -350px;
+  transition: 500ms;
+}
+
+
+
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}

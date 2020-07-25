@@ -1,0 +1,65 @@
+.Task{
+    min-height: 50px;
+    height: min-content;
+    width: 80vw;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px;
+    margin: 10px 0;
+    cursor: pointer;
+    padding: 0 20px;
+    font-family: Sitka;
+}
+.Task>div{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 120px;
+}
+.Task > span{
+    min-width: calc(80vw - 150px);
+}
+.TaskYellow{
+    box-shadow: 0px 0px 4px 0px yellow;
+}
+.TaskRed{
+    box-shadow: 0px 0px 4px 0px red;
+}
+.TaskGreen{
+    box-shadow: 0px 0px 4px 0px green;
+}
+.TaskWhite{
+    box-shadow: 0px 0px 4px 0px rgb(189, 189, 189);
+}
+.TaskPurple{
+    box-shadow: 0px 0px 4px 0px purple;
+}
+.TaskBlue{
+    box-shadow: 0px 0px 4px 0px blue;
+}
+.TaskTime{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #8E8E8E;
+    width: 70px;
+    font-size: 0.9em;
+    cursor: default;
+    font-family: Roboto
+}
+
+@media(max-width: 600px){
+    .Task{
+        font-size: 0.9em;
+    }
+    .TaskTime{
+        font-size: 0.8em;
+        width: 50px;
+    }
+    .Task>div{
+        width: 100px;
+    }
+
+}

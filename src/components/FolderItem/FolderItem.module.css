@@ -1,0 +1,44 @@
+.FolderItem{
+    width: 100%;
+    height: 50px;
+}
+.FolderItem::before{
+    content:"";
+    position: absolute;
+    right:0;
+    height: 50px;
+    width: 10px;
+    background-color: yellow;
+}
+.FolderItemWhite::before{
+    background-color: white;
+}
+.FolderItemYellow::before{
+    background-color: yellow;
+}
+.FolderItemRed::before{
+    background-color: red;
+}
+.FolderItemGreen::before{
+    background-color: green;
+}
+.FolderItemBlue::before{
+    background-color: blue;
+}
+.FolderItemPurple::before{
+    background-color: purple;
+}
+
+.FolderItem > a{
+    width: 90%;
+    height: 100%;
+    padding-left: 20px;
+    display:flex;
+    align-items: center;
+    text-decoration: none;
+    color:black;
+    font-family: Sitka;
+}
+.FolderItem > a:hover{
+    box-shadow: inset 0 0 2px -1px black;
+}

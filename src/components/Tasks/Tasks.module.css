@@ -1,0 +1,22 @@
+.Tasks{
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.TaskList{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+.Tasks > h2{
+    text-align: center;
+}
+
+@media(max-width: 600px){
+    .Tasks{
+        width: 95%;
+    }
+
+}

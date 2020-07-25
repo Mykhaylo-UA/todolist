@@ -1,0 +1,27 @@
+﻿.Alert{
+    position:fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    padding: 5px 10px;
+    background-color: #cecece;
+    color: #000000;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    z-index: 9999;
+}
+.Alert i{
+    cursor: pointer;
+    height: min-content;
+    transition: 0.2s;
+}
+.Alert img{
+    background:none;
+    width: 30px;
+    height: 30px;
+}
+.Alert i:hover{
+   color:orangered; 
+}

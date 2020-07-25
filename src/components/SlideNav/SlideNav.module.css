@@ -1,0 +1,38 @@
+.SlideNav{
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+    top:0;
+    background-color: white;
+    box-shadow: 2px 0 10px -5px black;
+    transition: left 0.5s ease-in-out;
+    z-index: 5;
+}
+.SlideNavOpen{
+    left: 0px;
+}
+.SlideNavClose{
+    left: -350px;
+}
+
+.BackgroundSlide{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    transition: 0.5s ease-in;
+    background-color: black;
+}
+.BackgroundSlide:hover{
+    cursor: pointer;
+}
+.BackgroundOpen{
+    opacity: 0.7;
+    z-index: 4;
+}
+.BackgroundClose{
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+}
