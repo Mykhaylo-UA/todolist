@@ -54,9 +54,10 @@ const Task = (props) =>{
     if (props.task.dateTime !== null) 
     {
         let date = props.task.dateTime.split("T")
+        
         datetime = (<React.Fragment>
             {date[0] !== "0001-01-01" ? <span>{date[0]}</span> : null }
-            {date[1] !== "00:00:00" ? <span>{date[1]}</span> : null }
+            {date[1] !== "00:00:00" ? <span>{date[1].split(":")[0] + ":" + date[1].split(":")[1]}</span> : null }
         </React.Fragment>)
     }
 

@@ -22,8 +22,8 @@ const Tasks = (props) => {
     
     const [color, setColor] = useState("white")
     const [text, setText] = useState("")
-    const [time, setTime] = useState("")
-    const [date, setDate] = useState("")
+    const [time, setTime] = useState(null)
+    const [date, setDate] = useState(null)
 
     const changeTextHandler = text => setText(text)
     const changeColorHandler = color => setColor(color)
@@ -36,20 +36,24 @@ const Tasks = (props) => {
             datetime = "0001-01-01T"
         }
         else{
-            datetime = date+"T";
+            const monthDate = date.getMonth() <= 9 ? "0"+(date.getMonth()+1) : (date.getMonth()+1);
+            const dateDate = date.getDate() <= 9 ? "0"+date.getDate() : date.getDate();
+            datetime = date.getFullYear()+"-"+monthDate+"-"+dateDate+"T";
         }
         if(time === null || time==="")
         {
             datetime += "00:00";
         }
         else{
-            datetime += time;
+            const hoursDate = time.getHours() <= 9 ? "0"+time.getHours() : time.getHours();
+            const minutesDate = time.getMinutes() <= 9 ? "0"+time.getMinutes() : time.getMinutes();
+            datetime += hoursDate+":"+minutesDate;
         }
         props.onAdd({color:color, text:text, datetime: (datetime === "0001-01-01T00:00" ? null : datetime), FolderId: id})
         setColor("white")
         setText("")
-        setDate("")
-        setTime("")
+        setDate(null)
+        setTime(null)
     }
 
     return(

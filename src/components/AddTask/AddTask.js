@@ -3,6 +3,15 @@ import classes from "./AddTask.module.css"
 import Modal from "../Modal/Modal";
 import SelectColor from "../SelectColor/SelectColor";
 import {CSSTransition} from "react-transition-group"
+import DateFnsUtils from '@date-io/date-fns'
+import {TextField} from "@material-ui/core"
+import {
+    DatePicker,
+    MuiPickersUtilsProvider,
+    TimePicker
+  } from '@material-ui/pickers';
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem';
 
 const AddTask = (props) => {
     let classik = [classes.AddTask]
@@ -41,10 +50,41 @@ const AddTask = (props) => {
     return(
         <React.Fragment>
             <div className={classik.join(" ")}>
-                <input value={props.text} onChange={(e) => props.changeText(e.target.value)} placeholder="New Task" />
+                <TextField required className={classes.TextField}/>
                 <button onClick={() => setModal(true)}><i style={{color: props.color === "white" ? "rgb(189, 189, 189)" : props.color}} className="material-icons">color_lens</i></button>
-                <input value={props.date} onChange={(e) => props.changeDate(e.target.value)} type="date" />
-                <input value={props.time} onChange={(e) => props.changeTime(e.target.value)} type="time" />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                        value={props.date}
+                        onChange={props.changeDate}
+                        animateYearScrolling
+                        format="dd-MM-yyyy"
+                        autoOk
+                        minDate={new Date('2020-07-01')}
+                        emptyLabel="Date"
+                        className={classes.Picker}
+                    />
+                    
+                </MuiPickersUtilsProvider>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <TimePicker
+                        clearable
+                        ampm={false}
+                        value={props.time}
+                        onChange={props.changeTime}
+                        emptyLabel="Time"
+                        className={classes.Picker}
+                    />
+                </MuiPickersUtilsProvider>
+
+                <Select value={""} className={classes.Picker} displayEmpty={true} inputProps={{ 'aria-label': 'Without label' }}>
+                    <MenuItem value="" disabled>
+                        Repeat
+                    </MenuItem>
+                    <MenuItem value="Day">Every day</MenuItem>
+                    <MenuItem value="Week">Every week</MenuItem>
+                    <MenuItem value="Month">Every month</MenuItem>
+                </Select>
+
                 <button onClick={props.addTask}><i className="material-icons">add</i></button>
             </div>
             <CSSTransition in={modalOpen} timeout={500} classNames={"modalFade"} unmountOnExit>
