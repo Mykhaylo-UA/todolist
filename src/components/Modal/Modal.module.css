@@ -1,8 +1,8 @@
 .Modal{
     height: auto;
     position: fixed;
-    z-index: 12;
     display:block;
+    opacity: 0;
     left: 20%;
     right: 20%;
     top: 10%;

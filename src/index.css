@@ -15,26 +15,26 @@ code {
 
 
 .modalFade-enter {
-  opacity: 0;
+  opacity: 0 !important;
   transition: opacity 500ms;
 }
 .modalFade-enter-active {
-  opacity: 1;
+  opacity: 1 !important;
   transition: opacity 500ms;
   z-index: 12;
 }
 .modalFade-enter-done{
-  opacity: 1;
+  opacity: 1 !important;
   transition: opacity 500ms;
   z-index: 12;
 }
 .modalFade-exit {
-  opacity: 1;
+  opacity: 1 !important;
   transition: opacity 500ms;
   z-index: 12;
 }
 .modalFade-exit-active {
-  opacity: 0;
+  opacity: 0 !important;
   transition: opacity 500ms;
 }
 
@@ -42,6 +42,7 @@ code {
 .slideFade-enter + div{
   background-color: rgba(0, 0, 0, 0);
   transition: 500ms;
+  
 }
 .modalFade-enter-active + div,
 .slideFade-enter-active + div  {

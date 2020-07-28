@@ -3,7 +3,7 @@ import classes from "./Task.module.css"
 import ContextMenu from "../ContextMenu/ContextMenu";
 import ContextItem from "../ContextItem/ContextItem";
 import {connect} from "react-redux"
-import {deleteTask} from "../../redux/action-creator";
+import {deleteTask, pomodoroStart, pomodoroNewStarted, openAlert} from "../../redux/action-creator";
 import {useParams} from "react-router-dom"
 import { Button } from "../Button/Button";
 import playButton from "../../SVG/play.svg"
@@ -67,12 +67,17 @@ const Task = (props) =>{
         </ContextMenu>
     )
 
+    const onClickPomodoro = taskId =>{
+        props.onStartPomodoro(taskId)
+    }
+
+    
     return(
         <React.Fragment>
             <div onContextMenu={(e)=> contextMenuHandler(e, props.task.id)} className={classik.join(" ")}>
                     <span>{props.task.text}</span>
                     <div>
-                        <Button><img src={playButton} alt={"B"} /></Button>
+                        <Button onClick={props.pomodoro.status === "stopped" ? ()=>onClickPomodoro(props.task.id) : ()=>props.openAlert("Спочатку завершіть інше завдання")}><img src={playButton} alt={"B"} /></Button>
                         <div className={classes.TaskTime}>
                             {datetime}
                         </div>
@@ -80,15 +85,23 @@ const Task = (props) =>{
             </div>
 
             {contextMenu ? menu : null}
-            
         </React.Fragment>
     )
 }
 
-function mapDispatchToProps(dispatch){
-    return{
-        onDelete: (id, folderId) => dispatch(deleteTask(id, folderId))
+function mapStateToProps(state){
+    return {
+        pomodoro: state.pomodoro
     }
 }
 
-export default connect(null, mapDispatchToProps)(Task)
+function mapDispatchToProps(dispatch){
+    return{
+        onDelete: (id, folderId) => dispatch(deleteTask(id, folderId)),
+        onStartPomodoro : taskId => dispatch(pomodoroStart(taskId)),
+        onStartNewPomodoro: taskId => dispatch(pomodoroNewStarted(taskId)),
+        openAlert: text => dispatch(openAlert(text))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task)

@@ -7,7 +7,7 @@ import {
     CLOSE_ALERT,
     LOADING_FINISH, LOADING_START,
     LOGOUT,
-    MODAL_OPEN, DELETE_FOLDER_SUCCESS, TASK_ERROR, LOAD_TASK_SUCCESS, ADD_TASK_SUCCESS, DELETE_TASK_SUCCESS
+    MODAL_OPEN, DELETE_FOLDER_SUCCESS, TASK_ERROR, LOAD_TASK_SUCCESS, ADD_TASK_SUCCESS, DELETE_TASK_SUCCESS, POMODORO_START, POMODORO_UPDATE_TICKS, POMODORO_SHORT_BREAK_START, POMODORO_LONG_BREAK_START, POMODORO_FINISH, POMODORO_NEW_STARTED, OPEN_ALERT
 } from "./action-types"
 
 const initialState = {
@@ -20,6 +20,13 @@ const initialState = {
         text: "",
         loading: false,
         time: 0
+    },
+    pomodoro:{
+        status: "stopped",
+        timeout: 25, //seconds 1500 | 25 minutes
+        taskId: null,
+        ticks : "",
+        couterBreak: 0
     }
 }
 
@@ -114,6 +121,32 @@ export default function rootReducer(state=initialState, action){
         case CLOSE_ALERT:
         {
             return {...state, alert:{...state.alert, status:false}}
+        }
+        case OPEN_ALERT:{
+            return {...state, alert: {...state.alert ,text:action.payload, status: true, time: 2000, loading:false}}
+        }
+
+        case POMODORO_START:{
+            return {...state, pomodoro: {...state.pomodoro, status:"started", timer: 25, taskId: action.payload}};
+        }
+        case POMODORO_NEW_STARTED:{
+            return {...state, pomodoro: {...state.pomodoro, status:"new_started", timer: 25, taskId: action.payload}};
+        }
+        case POMODORO_UPDATE_TICKS:{
+            return {...state, pomodoro: {...state.pomodoro, ticks: action.payload}}
+        }
+        case POMODORO_SHORT_BREAK_START:{
+            return {...state, pomodoro: {...state.pomodoro, status:"short_break", counterBreak: state.pomodoro.counterBreak+1}}
+        }
+        case POMODORO_LONG_BREAK_START:{
+            return {...state, pomodoro: {...state.pomodoro, status:"long_break", counterBreak: 0}}
+        }
+        case POMODORO_FINISH:{
+            return {...state, pomodoro: {status: "stopped",
+            timeout: 25, //seconds 1500 | 25 minutes
+            taskId: null,
+            ticks : "",
+            couterBreak: 0}}
         }
         default:{
             return state;

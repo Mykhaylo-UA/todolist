@@ -18,7 +18,8 @@
     ADD_ALL_FOLDERS_SUCCESS,
     DELETE_FOLDER_SUCCESS,
     DELETE_FOLDER,
-    LOAD_TASK, LOAD_TASK_SUCCESS, TASK_ERROR, ADD_TASK_SUCCESS, DELETE_TASK_SUCCESS,
+    LOAD_TASK, LOAD_TASK_SUCCESS, TASK_ERROR, ADD_TASK_SUCCESS, DELETE_TASK_SUCCESS, 
+    POMODORO_FINISH, POMODORO_START, POMODORO_SHORT_BREAK_FINISH, POMODORO_SHORT_BREAK_START, POMODORO_LONG_BREAK_FINISH, POMODORO_LONG_BREAK_START, POMODORO_UPDATE_TICKS, POMODORO_NEW_STARTED, OPEN_ALERT
 } from "./action-types"
 
 export const addFolder = payload => ({type: ADD_FOLDER, payload:payload});
@@ -51,3 +52,13 @@ export const loadingFinish = () => ({type: LOADING_FINISH})
 
 export const modalOpen = payload => ({type:MODAL_OPEN, payload:payload});
 export const closeAlert = () => ({type: CLOSE_ALERT})
+export const openAlert = text => ({type: OPEN_ALERT, payload: text})
+
+export const pomodoroStart = taskId => ({type: POMODORO_START, payload:taskId})
+export const pomodoroFinish = () => ({type: POMODORO_FINISH})
+export const pomodoroShortBreakStart = () => ({type: POMODORO_SHORT_BREAK_START})
+export const pomodoroShortBreakFinish = () => ({type: POMODORO_SHORT_BREAK_FINISH})
+export const pomodoroLongBreakStart = () => ({type: POMODORO_LONG_BREAK_START})
+export const pomodoroLongBreakFinish = () => ({type: POMODORO_LONG_BREAK_FINISH})
+export const pomodoroUpdateTicks = ticks => ({type: POMODORO_UPDATE_TICKS, payload:ticks})
+export const pomodoroNewStarted = taskId => ({type: POMODORO_NEW_STARTED, payload: taskId})

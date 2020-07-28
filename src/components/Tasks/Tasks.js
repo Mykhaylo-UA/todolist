@@ -8,7 +8,6 @@ import {useParams} from "react-router-dom"
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 
 const Tasks = (props) => {
-    
     const {id} = useParams();
     
     useEffect(()=>

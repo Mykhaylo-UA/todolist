@@ -5,7 +5,7 @@ import Modal from "../Modal/Modal";
 import Authorization from "../Authorization/Authorization";
 import {connect} from "react-redux"
 import Alert from "../Alert/Alert";
-import {addAllFolder, authenticate, closeAlert, logout, modalOpen} from "../../redux/action-creator";
+import {addAllFolder, authenticate, closeAlert, logout, modalOpen, pomodoroUpdateTicks, pomodoroShortBreakStart, pomodoroLongBreakStart, pomodoroStart, pomodoroFinish} from "../../redux/action-creator";
 import { useHistory, useParams } from "react-router-dom";
 import { Button } from "../Button/Button";
 import settingIcon from "../../SVG/settings.svg"
@@ -14,10 +14,75 @@ import logoutIcon from "../../SVG/logout.svg"
 import instructionIcon from "../../SVG/instruction.svg"
 import menuIcon from '../../SVG/menu.svg'
 import {CSSTransition} from "react-transition-group"
+import Pomodoro from "../Pomodoro/Pomodoro"
 
 const NavBar = (props) =>{
+
+    function countdown(minutes) {
+        var seconds = 20;
+        var mins = minutes
+        function tick() {
+            if(props.pomodoro.status==="new_started")
+            {
+                return;
+            }
+            //This script expects an element with an ID = "counter". You can change that to what ever you want. 
+            var current_minutes = mins-1
+            seconds--;
+            props.pomodoroUpdateTicks(current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds));
+            if( seconds > 0 ) {
+                setTimeout(tick, 1000);
+            } else {
+                if(mins > 1){
+                    countdown(mins-1);           
+                }
+                else{
+                    if(props.pomodoro.status==="started")
+                    {
+                        if(props.pomodoro.counterBreak >= 4)
+                        {
+                            props.pomodoroLongBreakStart()
+                            return;
+                        }
+                        else{
+                            props.pomodoroShortBreakStart()
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        props.pomodoroStart(props.pomodoro.taskId)
+                        return;
+                    }
+                }
+            }
+        }
+        tick();
+    }
+
+    useEffect(()=>{
+        if(props.pomodoro.status==="started")
+        {
+            countdown(25)
+        }
+        /*else if(props.pomodoro.status==="new_started"){
+            countdown(1)
+        }*/
+        else if(props.pomodoro.status==="short_break")
+        {
+            countdown(5)
+        }
+        else if(props.pomodoro.status==="long_break")
+        {
+            countdown(30)
+        }
+    }, [props.pomodoro.status]) // eslint-disable-line
+
+
     const [slideNavOpen, setSlide] = useState(false);
     const [nameFolder, setNameFolder] = useState("")
+
+    const [modalPomodoro, setModalPomodoro] = useState(false)
 
     let history = useHistory();
     const {id} = useParams();
@@ -86,6 +151,18 @@ const NavBar = (props) =>{
             {props.isAuthenticate ? <CSSTransition in={slideNavOpen} timeout={500} classNames={"slideFade"} unmountOnExit><SlideNav open={slideNavOpen} closeHandler={closeHandler}/></CSSTransition> : null }
             
             { props.alert.status ? <Alert time={props.alert.time} loading={props.alert.loading} closeEvent={props.onCloseAlert}>{props.alert.text}</Alert> : null }
+
+            {props.pomodoro.status === "started" || props.pomodoro.status === "short_break" || props.pomodoro.status === "long_break" ? 
+                <div onClick={()=>setModalPomodoro(true)} className={classes.PomodoroButton}>{props.pomodoro.ticks}</div> 
+                : null}
+
+
+            <CSSTransition in={modalPomodoro} timeout={500} classNames={"modalFade"} unmountOnExit>
+                <Modal modalHandler={()=>setModalPomodoro(false)}>
+                    <Pomodoro />
+                </Modal>
+            </CSSTransition>
+
         </React.Fragment>
     )
 }
@@ -95,7 +172,8 @@ function mapStateToProps(state){
         isAuthenticate : state.isAuthenticate,
         modalAuth: state.modalAuth,
         alert: state.alert,
-        folders : state.folders
+        folders : state.folders,
+        pomodoro: state.pomodoro
     }
 }
 function mapDispatchToProps(dispatch){
@@ -104,7 +182,12 @@ function mapDispatchToProps(dispatch){
         onModelOpen: (bool) => dispatch(modalOpen(bool)),
         onCloseAlert: () => dispatch(closeAlert()),
         onAuth: () => dispatch(authenticate()),
-        loadAllFolders: () => dispatch(addAllFolder())
+        loadAllFolders: () => dispatch(addAllFolder()),
+        pomodoroUpdateTicks: ticks => dispatch(pomodoroUpdateTicks(ticks)),
+        pomodoroShortBreakStart : () => dispatch(pomodoroShortBreakStart()),
+        pomodoroLongBreakStart: () => dispatch(pomodoroLongBreakStart),
+        pomodoroStart: taskId => dispatch(pomodoroStart(taskId)),
+        pomodoroFinish: () => dispatch(pomodoroFinish())
     }
 }
 
