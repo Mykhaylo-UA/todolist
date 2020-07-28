@@ -65,7 +65,7 @@ const NavBar = (props) =>{
     useEffect(()=>{
         if(props.pomodoro.status==="started")
         {
-            countdown(1)
+            countdown(25)
         }
         /*else if(props.pomodoro.status==="new_started"){
             countdown(1)
