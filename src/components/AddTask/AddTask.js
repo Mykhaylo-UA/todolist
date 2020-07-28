@@ -50,7 +50,7 @@ const AddTask = (props) => {
     return(
         <React.Fragment>
             <div className={classik.join(" ")}>
-                <TextField required className={classes.TextField}/>
+                <TextField value={props.text} onChange={e => props.changeText(e.target.value)} required className={classes.TextField}/>
                 <button onClick={() => setModal(true)}><i style={{color: props.color === "white" ? "rgb(189, 189, 189)" : props.color}} className="material-icons">color_lens</i></button>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker

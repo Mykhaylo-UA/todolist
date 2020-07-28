@@ -19,51 +19,53 @@ import Pomodoro from "../Pomodoro/Pomodoro"
 const NavBar = (props) =>{
 
     function countdown(minutes) {
-        var seconds = 20;
+        var seconds = 60;
         var mins = minutes
+        var interval;
         function tick() {
             if(props.pomodoro.status==="new_started")
             {
                 return;
             }
-            //This script expects an element with an ID = "counter". You can change that to what ever you want. 
             var current_minutes = mins-1
             seconds--;
             props.pomodoroUpdateTicks(current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds));
-            if( seconds > 0 ) {
-                setTimeout(tick, 1000);
-            } else {
-                if(mins > 1){
-                    countdown(mins-1);           
-                }
-                else{
-                    if(props.pomodoro.status==="started")
+            
+            if(current_minutes <=0 && seconds <= 0)
+            {
+                clearInterval(interval)
+                if(props.pomodoro.status==="started")
+                {
+                    if(props.pomodoro.counterBreak >= 4)
                     {
-                        if(props.pomodoro.counterBreak >= 4)
-                        {
-                            props.pomodoroLongBreakStart()
-                            return;
-                        }
-                        else{
-                            props.pomodoroShortBreakStart()
-                            return;
-                        }
+                        props.pomodoroLongBreakStart()
+                        return;
                     }
-                    else
-                    {
-                        props.pomodoroStart(props.pomodoro.taskId)
+                    else{
+                        props.pomodoroShortBreakStart()
                         return;
                     }
                 }
+                else
+                {
+                    props.pomodoroStart(props.pomodoro.taskId)
+                    return;
+                }
             }
+            if(seconds <= 0){
+                mins--;
+                seconds = 60;
+            }
+            
+            
         }
-        tick();
+        interval = setInterval(tick,1000);
     }
 
     useEffect(()=>{
         if(props.pomodoro.status==="started")
         {
-            countdown(25)
+            countdown(1)
         }
         /*else if(props.pomodoro.status==="new_started"){
             countdown(1)

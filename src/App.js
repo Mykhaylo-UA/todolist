@@ -14,7 +14,7 @@ function App(props) {
   return (
     <BrowserRouter>
             <Switch>
-                <Route path={'/:id'}>
+                <Route path={'/:id([0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12})'}>
                     {props.isAuthenticate
                         ? tasks
                         : nonAuth
@@ -23,6 +23,7 @@ function App(props) {
                 {props.fId[0] !== undefined && props.isAuthenticate === true 
                   ? <Redirect to={"/"+props.fId[0].id}/> 
                   : <Route path={'/'} exact>{nonAuth}</Route>}
+                <Redirect to={"/"} />
             </Switch>
     </BrowserRouter>
   );
